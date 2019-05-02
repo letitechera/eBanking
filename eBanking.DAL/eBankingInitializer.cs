@@ -11,11 +11,11 @@ namespace eBanking.DAL
             var types = new List<AccountType>{
                 new AccountType()
                 {
-                    Name = "Pesos"
+                    Name = "Caja de ahorro"
                 },
                 new AccountType()
                 {
-                    Name = "Dolares"
+                    Name = "Cuenta corriente"
                 }
             };
             context.AccountTypes.AddRange(types);
@@ -29,20 +29,23 @@ namespace eBanking.DAL
             };
 
             var newUser = context.Users.Add(user);
+            context.SaveChanges();
+
             var accounts = new List<Account>{
                 new Account()
                 {
                     Balance = 500,
-                    UserId = newUser.Id,
+                    UserId = 1,
                     AccountTypeId = 1,
                 },
                 new Account()
                 {
                     Balance = 600,
-                    UserId = newUser.Id,
+                    UserId = 1,
                     AccountTypeId = 2,
                 }
             };
+            context.Accounts.AddRange(accounts);
             context.SaveChanges();
         }
     }

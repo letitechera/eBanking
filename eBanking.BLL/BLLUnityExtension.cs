@@ -11,6 +11,7 @@ namespace eBanking.BLL
         {
             Container.AddNewExtension<DALUnityExtension>();
             Container.RegisterType<ITransferencesLogic, TransferencesLogic>();
+            Container.RegisterType<IUsersLogic, UsersLogic>();
         }
     }
 }

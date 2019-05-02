@@ -1,4 +1,5 @@
 using System;
+using eBanking.BLL;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 
@@ -36,7 +37,7 @@ namespace eBanking.WebAPI.App_Start
             // container.LoadConfiguration();
 
             // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
+            container.AddNewExtension<BLLUnityExtension>();
         }
     }
 }

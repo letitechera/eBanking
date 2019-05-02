@@ -18,5 +18,9 @@ namespace eBanking.Model.DBModel
         public virtual AccountType AccountType { get; set; }
         [JsonIgnore]
         public virtual User User { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Transference> OriginTransferences { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Transference> DestinationTransferences { get; set; }
     }
 }

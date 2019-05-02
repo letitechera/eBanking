@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity.Mvc;
 
@@ -20,6 +21,8 @@ namespace eBanking.WebAPI.App_Start
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
+            // WebAPI controllers
+            GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
             // TODO: Uncomment if you want to use PerRequestLifetimeManager
             // Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }

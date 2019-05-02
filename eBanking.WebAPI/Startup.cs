@@ -15,11 +15,9 @@ namespace eBanking.WebAPI
 
             config.DependencyResolver = new UnityDependencyResolver(UnityConfig.GetConfiguredContainer());
 
-
             WebApiConfig.Register(config);
 
             app.UseWebApi(config);
-
         }
     }
 }

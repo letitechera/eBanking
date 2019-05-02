@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace eBanking.DAL
 {
-    public class eBankingContext: DbContext
+    public class eBankingContext : DbContext
     {
         public eBankingContext() : base("eBanking.DAL.eBankingContext")
         {
-            //Database.SetInitializer<eBankingContext>(new CreateDatabaseIfNotExists<eBankingContext>());
             Database.SetInitializer(new eBankingInitializer());
         }
 
@@ -20,5 +19,15 @@ namespace eBanking.DAL
         public DbSet<Account> Accounts { get; set; }
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Transference> Transferences { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Transference>().HasRequired(m => m.OriginAccount)
+                      .WithMany(m => m.OriginTransferences).HasForeignKey(m => m.OriginAccountId)
+                      .WillCascadeOnDelete(false); 
+            modelBuilder.Entity<Transference>().HasRequired(m => m.DestinationAccount)
+                      .WithMany(m => m.DestinationTransferences).HasForeignKey(m => m.DestinationAccountId)
+                      .WillCascadeOnDelete(false);
+        }
     }
 }

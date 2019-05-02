@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace eBanking.BLL.BusinessLogic
 {
-    public class UsersLogic
+    public class UsersLogic: IUsersLogic
     {
         private readonly IRepository<User> _usersRepository;
         private readonly IRepository<Account> _accountsRepository;

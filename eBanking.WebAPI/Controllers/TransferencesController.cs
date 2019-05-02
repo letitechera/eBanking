@@ -7,11 +7,11 @@ using System.Web.Http;
 
 namespace eBanking.WebAPI.Controllers
 {
-    [Route("api/transferences")]
+    [RoutePrefix("api/transferences")]
     public class TransferencesController : ApiController
     {
-        IUsersLogic _usersLogic;
-        ITransferencesLogic _transferencesLogic;
+        public IUsersLogic _usersLogic;
+        public ITransferencesLogic _transferencesLogic;
 
         public TransferencesController(IUsersLogic usersLogic, ITransferencesLogic transferencesLogic)
         {
@@ -19,17 +19,15 @@ namespace eBanking.WebAPI.Controllers
             _transferencesLogic = transferencesLogic;
         }
 
-        // GET api/<controller>
         [Route("user/{id}/accounts")]
         [HttpGet]
-        public IEnumerable<Account> Get(int id)
+        public IEnumerable<Account> GetAccounts(int id)
         {
             return _usersLogic.GetAccountsByUser(id);
         }
 
         [Route("send")]
         [HttpPost]
-        // POST api/<controller>
         public IHttpActionResult Post([FromBody]Transference tr)
         {
             try
