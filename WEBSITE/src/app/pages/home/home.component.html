@@ -1,0 +1,72 @@
+<div class="container">
+  <h4>Realizar transferencia interna</h4>
+  <div>
+    <span *ngIf="!availableAccounts">
+      <div class="loader"></div>
+    </span>
+    <form [formGroup]="newForm" (ngSubmit)="submit()" *ngIf="availableAccounts && allAccounts">
+      <fieldset>
+        <div class="row">
+          <div class="col-12">
+            <mat-form-field>
+              <mat-select formControlName="Origin" placeholder="Cuenta de origen *" [(value)]="selectedOrigin"
+                (ngModelChange)="changeValue($event)">
+                <mat-option *ngFor="let account of allAccounts" [value]="account.Id">
+                  {{ account.AccountType.Name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="newForm.get('Origin').hasError('required')">
+                Elija una cuenta de origen
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <mat-form-field>
+              <mat-select formControlName="Destination" placeholder="Cuenta de destino *"
+                [(value)]="selectedDestination" (ngModelChange)="changeValue($event)">
+                <mat-option *ngFor="let account of availableAccounts" [value]="account.Id">
+                  {{ account.AccountType.Name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="newForm.get('Destination').hasError('required')">
+                Elija una cuenta de destino
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <mat-form-field>
+              <input matInput placeholder="Monto *" formControlName="Amount" type="number" />
+              <mat-error *ngIf="newForm.get('Amount').hasError('required') && this.submitted">
+                Escriba un monto a transferir
+              </mat-error>
+              <mat-error *ngIf="newForm.get('Amount').hasError('required') && this.submitted">
+                La cuenta de origen no tiene suficiente saldo.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <mat-form-field>
+              <input matInput placeholder="Descripción *" formControlName="Description" />
+              <mat-error *ngIf="newForm.get('Description').hasError('required') && this.submitted">
+                Escriba una descripción
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12">
+            <div *ngIf="error" class="error-message">{{errorMessage}}</div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="controls">
+        <div class="controls-container">
+          <button type="submit" class="btn btn-primary">
+            <span *ngIf="!loading">Aceptar</span>
+            <span *ngIf="loading">
+              <div class="loader"></div>
+            </span>
+          </button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
