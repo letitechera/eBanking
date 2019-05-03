@@ -2,6 +2,7 @@
 using eBanking.DAL.Repositories;
 using eBanking.Model.ApiModels;
 using eBanking.Model.DBModel;
+using System;
 using System.Linq;
 
 namespace eBanking.BLL.BusinessLogic
@@ -44,7 +45,7 @@ namespace eBanking.BLL.BusinessLogic
 
                 return new ApiResult { Success = true };
             }
-            catch
+            catch (Exception ex)
             {
                 return new ApiResult { Success = false, ErrorMessage = "La transacción no se pudo realizar." };
             }

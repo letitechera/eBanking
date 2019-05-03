@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -52,12 +53,13 @@ namespace eBanking.DAL.Repositories
 
         public void Update(T entity, bool saveChanges = true)
         {
-            var oldEntity = FindById(entity.Id);
+            dbset.AddOrUpdate(entity);
+            //var oldEntity = FindById(entity.Id);
 
-            if (oldEntity != null)
-            {
-                context.Entry(oldEntity).CurrentValues.SetValues(entity);
-            }
+            //if (oldEntity != null)
+            //{
+            //    context.Entry(oldEntity).CurrentValues.SetValues(entity);
+            //}
             if (saveChanges)
             {
                 SaveChanges();

@@ -14,7 +14,6 @@ namespace eBanking.Model.DBModel
         public decimal Balance { get; set; }
         public int UserId { get; set; }
 
-        [JsonIgnore]
         public virtual AccountType AccountType { get; set; }
         [JsonIgnore]
         public virtual User User { get; set; }
