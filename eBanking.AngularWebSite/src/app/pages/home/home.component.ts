@@ -43,12 +43,10 @@ export class HomeComponent implements OnInit {
 
   public initData() {
     this.eBankingApi.getUserAccounts().then((data: any[]) => {
-      console.log(data);
       this.allAccounts = data;
       this.availableAccounts = data;
       this.selectedOrigin = data[0].id;
       this.selectedDestination = data[1].id;
-      console.log(this.availableAccounts);
 
     }, (err) => {
       console.log(err);
@@ -66,21 +64,26 @@ export class HomeComponent implements OnInit {
 
   public submit() {
     this.submitted = true;
+    this.error = false;
     if (!this.newForm.valid) {
+      return;
+    }
+    if(this.newForm.get('Origin').value.Id === this.newForm.get('Destination').value.Id){
+      this.error = true;
+      this.errorMessage = "Las cuentas deben ser distintas";
       return;
     }
     this.sendTransference();
   }
 
-  public changeValue() {
-    console.log('changed');
+  public changeValue(data) {
+    // Remove element from destination accounts list
   }
 
   private sendTransference() {
     this.setTransferenceObject();
     this.eBankingApi.postTransference(this.transference).then((data: any[]) => {
       alert('La transacción fue realizada con éxito');
-      console.log('Success!');
     }, (err) => {
       this.error = true;
       this.errorMessage = err.error.ErrorMessage;
@@ -91,10 +94,10 @@ export class HomeComponent implements OnInit {
     this.transference.UserId = 1;
     this.transference.Amount = this.newForm.get('Amount').value;
     this.transference.Description = this.newForm.get('Description').value;
-    this.transference.OriginAccountId = this.newForm.get('Origin').value;
-    this.transference.DestinationAccountId = this.newForm.get('Destination').value;
+    this.transference.OriginAccountId = this.newForm.get('Origin').value.Id;
+    this.transference.DestinationAccountId = this.newForm.get('Destination').value.Id;
     this.transference.Date = new Date();
     this.transference.Id = 0;
-  }
+    }
 
 }

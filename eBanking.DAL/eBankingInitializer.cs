@@ -34,12 +34,14 @@ namespace eBanking.DAL
             var accounts = new List<Account>{
                 new Account()
                 {
+                    Id = 0,
                     Balance = 500,
                     UserId = 1,
                     AccountTypeId = 1,
                 },
                 new Account()
                 {
+                    Id = 0,
                     Balance = 600,
                     UserId = 1,
                     AccountTypeId = 2,
